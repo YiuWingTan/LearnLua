@@ -1,0 +1,60 @@
+
+--实现对象
+
+
+-- 不涉及成员的隐藏
+function  Create_Shape( _name,_id )
+	-- body
+	local obj = {Name = _name,ID = _id}
+
+	function obj:PrintInfo(  )
+		print(self.Name,self.ID)
+		-- body
+	end
+
+	return obj
+end
+
+-- 使用闭包来隐藏成员
+function Create_Shape2(_name,_id)
+
+	local data = {name = _name,id = _id}
+
+	local obj = {}
+
+	function obj:SetName(__name)
+		data.name = __name;
+	end
+
+
+	function obj:SetID(__id)
+		data.id = __id;
+	end
+
+
+	function obj:GetName()
+		return data.name;
+	end
+
+
+	function obj:GetID()
+		return data.id;
+	end
+
+	function obj:PrintInfo(  )
+		print(data.name,data.id)
+		-- body
+	end
+
+	return obj;
+
+end
+
+shape = Create_Shape('Shape','001')
+shape:PrintInfo()
+
+--测试闭包实现
+shape2 = Create_Shape2('Shape2','002')
+shape2:SetName('super Shape2')
+shape2:SetID('004')
+shape2:PrintInfo()

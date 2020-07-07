@@ -1,0 +1,43 @@
+
+-- 实现继承
+
+function  Create_Shape( _name,_id )
+	-- body
+	local obj = {Name = _name,ID = _id}
+
+	function obj:PrintInfo(  )
+		print(self.Name,self.ID)
+		-- body
+	end
+
+	return obj
+end
+
+-- 使用元表来实现
+function Create_Retangle(_name,_id ,_side)
+	-- body
+	local  obj = Create_Shape(_name,_id)
+
+	local  retangle = {Side = _side}
+	
+	setmetatable(retangle,obj)
+	obj.__index = obj;
+
+	return retangle;
+end
+
+-- 不使用元表来实现
+function Create_Retangle2(_name,_id ,_side)
+	local  obj = Create_Shape(_name,_id)
+	obj.Side = _side;
+	return obj
+end
+
+
+shape = Create_Shape('Shape','001')
+retangle = Create_Retangle('Retangle','002',2)
+retangle2 = Create_Retangle2('Retangle','003',2)
+
+shape:PrintInfo()
+retangle:PrintInfo()
+retangle2:PrintInfo()

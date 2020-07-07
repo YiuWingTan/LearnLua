@@ -1,0 +1,20 @@
+--实现闭包
+
+function fn()
+     i = 1
+    return function()     -- 注意这里是返回函数的地址，不是执行
+       i = i + 1
+        return i
+    end
+end
+
+c1 = fn()                      -- 接收函数返回的地址
+print(c1())                    --> 1          --c1()才表示执行
+--local i = 0的意思是重新创建一个新的变量，这里没有创建新的？
+print(c1())                    --> 2
+
+--再次调用fn，将创建一个新的局部变量i
+c2 = fn()
+print(c2())  -->1
+print(c1())  -->3
+print(c2())  -->2
